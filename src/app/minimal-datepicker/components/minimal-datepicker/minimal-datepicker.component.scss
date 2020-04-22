@@ -1,0 +1,170 @@
+// INPUT
+
+$input-padding: 0.4rem;
+$input-radius: 4px;
+
+// PICKER
+
+$picker-padding: 0.4rem;
+$picker-radius: 4px;
+$picker-inside-padding: 0.4rem;
+$content-items-margin: 0.4rem;
+* {
+    box-sizing: border-box;
+}
+
+.min-datepicker-container {
+    display: block;
+    position: relative;
+    width: 200px;
+    height: auto;
+    user-select: none;
+
+    .min-datepicker-input-container {
+        display: block;
+        width: auto;
+        height: auto;
+
+        .min-datepicker-input {
+            display: block;
+            position: relative;
+            width: 100%;
+            padding: $input-padding;
+            border-radius: $input-radius;
+            border: none;
+            text-align: inherit;
+            background: inherit;
+            font-weight: inherit;
+            font-size: inherit;
+            outline: none;
+
+            &.dark {
+                background: #00000045;
+            }
+        }
+
+        .min-datepicker-picker-container {
+            display: block;
+            position: absolute;
+            width: auto;
+            min-width: 100%;
+            height: auto;
+            padding: $picker-padding;
+            background: #fff;
+            box-shadow: 0 0 10px #00000030;
+            border: none;
+            .min-datepicker-picker-header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                flex-direction: row;
+                width: 100%;
+                min-height: 50px;
+                height: auto;
+                .picker-date {
+                    display: block;
+                    width: 80%;
+                    text-align: center;
+
+                    .month,
+                    .year {
+                        display: block;
+                        width: 40%;
+                        padding: 0.2rem;
+                        border-radius: $picker-radius;
+                        margin-left: auto;
+                        margin-right: auto;
+                        cursor: pointer;
+                        &:hover {
+                            background: #00000030;
+                        }
+                    }
+
+                    .year {
+                        font-size: 0.8rem;
+                        font-weight: bold;
+                    }
+                }
+
+                .left-caret,
+                .right-caret {
+                    display: block;
+                    width: 0.75rem;
+                    height: 0.75rem;
+                    border-color: #000;
+                    border-bottom: 2px solid;
+                    cursor: pointer;
+                }
+
+                .left-caret {
+                    border-left: 2px solid;
+                    transform: rotate(45deg);
+                }
+
+                .right-caret {
+                    border-right: 2px solid;
+                    transform: rotate(-45deg);
+                }
+            }
+
+            .min-datepicker-picker-content {
+                display: block;
+                width: 100%;
+                min-height: 100px;
+
+                .min-datepicker-picker-content-weekday {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: row;
+                    margin-bottom: 0.4rem;
+                    .weekday {
+                        display: inline-block;
+                        height: auto;
+                        width: auto;
+                        margin-right: $content-items-margin;
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+
+                .min-datepicker-picker-content-days {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: auto;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+
+                    .day {
+                        display: block;
+                        width: calc(100% / 7);
+                        font-weight: bold;
+                        text-align: center;
+                        cursor: pointer;
+                        padding: $content-items-margin;
+                        border-radius: $picker-radius;
+                        transition: all 0.1s ease;
+                        &.notInMonth {
+                            font-weight: normal;
+                            color: #0000008f;
+                        }
+                        &:hover {
+                            background: #00000030;
+                        }
+                    }
+                }
+            }
+
+            .min-datepicker-picker-footer {
+                display: block;
+                width: 100%;
+                min-height: 50px;
+                height: auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+<div class="min-datepicker-container">
+    <div class="min-datepicker-input-container">
+        <input type="text" class="min-datepicker-input" (focus)="onInputFocus()" [class.dark]="!inputClass">
+
+        <div class="min-datepicker-picker-container " *ngIf="showPicker">
+            <div class="min-datepicker-picker-header">
+                <div class="left-caret"></div>
+                <div class="picker-date">
+                    <div class="month">{{SelectedMonth}}</div>
+                    <div class="year">{{SelectedYear}}</div>
+                </div>
+                <div class="right-caret"></div>
+            </div>
+            <div class="min-datepicker-picker-content">
+                <div class="min-datepicker-picker-content-weekday">
+                    <ng-container *ngFor="let weekDay of WeekDays">
+                        <div class="weekday">{{weekDay}}</div>
+                    </ng-container>
+                </div>
+                <div class="min-datepicker-picker-content-days">
+                    <ng-container *ngFor="let day of DaysInMonth">
+                        <div class="day" [class.notInMonth]="!day.isInMonthBase">{{day.date | date:"dd"}}</div>
+                    </ng-container>
+                </div>
+            </div>
+            <!-- <div class="min-datepicker-picker-footer">
+              
+            </div> -->
+        </div>
+
+    </div>
+</div>
