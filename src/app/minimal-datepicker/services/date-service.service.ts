@@ -23,7 +23,6 @@ export class DateService {
     return this.core.weekdaysShort(true);
   }
 
-
   public getTodayMonth() {
     return this.core().format("MM");
   }
@@ -36,25 +35,28 @@ export class DateService {
     return this.core().format("YYYY");
   }
 
+  public getTodayDay() {
+    return this.core().format("DD");
+  }
+
   public getPickerPopulate(month: string, year: string): Population[] {
     var daysinMonth: Population[] = [];
-    var baseDate = this.core(`${year}/${month}`, "YY/MMMM");
+    var baseDate = moment(`${year}/${month}`, "YYYY/MMMM");
     var initDate = baseDate.startOf('month');
-
-    console.log(initDate.weekday())
     if (initDate.weekday() > 0) {
       let diff = initDate.weekday();
       for (var day = diff; day > 0; day--) {
-        let dateToPush = this.core(initDate).subtract(day, 'd');
+        let dateToPush = this.core(initDate).subtract(day, 'day');
         daysinMonth.push({ isMonthBase: false, date: dateToPush });
+        console.log(dateToPush.format("DD"))
       }
     }
-    daysinMonth.push({ isMonthBase: true, date: initDate });
+    daysinMonth.push({ isMonthBase: true, date: initDate.startOf("month") });
+    console.log(daysinMonth)
     for (var day = 1; day < baseDate.daysInMonth(); day++) daysinMonth.push({ isMonthBase: true, date: this.core(initDate).add(day, 'd') });
 
-    if (daysinMonth.length < 35)
-      for (var day = 0; daysinMonth.length < 35; day++) daysinMonth.push({ isMonthBase: false, date: this.core(initDate.endOf('m')).add(day, 'd') });
-
+    if (daysinMonth.length < 42)
+      for (var day = 0; daysinMonth.length < 42; day++) daysinMonth.push({ isMonthBase: false, date: this.core(initDate.endOf('month')).add(day, 'd') });
     return daysinMonth;
   }
 }

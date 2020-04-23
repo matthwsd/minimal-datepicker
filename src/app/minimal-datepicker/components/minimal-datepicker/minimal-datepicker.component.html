@@ -1,30 +1,42 @@
 <div class="min-datepicker-container">
     <div class="min-datepicker-input-container">
-        <input type="text" class="min-datepicker-input" (focus)="onInputFocus()" [class.dark]="!inputClass">
+        <input type="text" class="min-datepicker-input" [(ngModel)]="datepickerInput" (focus)="onInputFocus()"
+            [style.border-radius.px]="input?.radius" [style.color]="input?.color" [style.background]="input?.background"
+            [style.font-weight]="input?.font?.weight" [style.font-size]="input?.font?.size"
+            [style.font-family]="input?.font?.family">
 
         <div class="min-datepicker-picker-container " *ngIf="showPicker">
-            <div class="min-datepicker-picker-header">
-                <div class="left-caret"></div>
+            <div class="min-datepicker-picker-header" [style.background-color]="header?.background"
+                [style.color]="header?.color">
+                <div class="min-datepicker-picker-label">{{pickerLabel? pickerLabel.text : "Escolha uma data" }}</div>
                 <div class="picker-date">
-                    <div class="month">{{SelectedMonth}}</div>
-                    <div class="year">{{SelectedYear}}</div>
+                    <!-- <div class="day" [style.color]="header?.day?.color">{{SelectedDay}}</div> -->
+                    <div class="month" [style.color]="header?.month?.color">{{SelectedMonth}},</div>
+                    <div class="year" [style.color]="header?.year?.color">{{SelectedYear}}</div>
                 </div>
-                <div class="right-caret"></div>
+                <div class="left-caret" [style.color]="header?.caret?.color" (click)="prev()"></div>
+                <div class="right-caret" [style.color]="header?.caret?.color" (click)="next()"></div>
             </div>
-            <div class="min-datepicker-picker-content">
-                <div class="min-datepicker-picker-content-weekday">
+            <div class="min-datepicker-picker-content" [style.background-color]="content?.background"
+                [style.color]="content?.color">
+                <div class="min-datepicker-picker-content-weekday"
+                    [style.background-color]="content?.weekDay?.background" [style.color]="content?.weekDay?.color">
                     <ng-container *ngFor="let weekDay of WeekDays">
                         <div class="weekday">{{weekDay}}</div>
                     </ng-container>
                 </div>
                 <div class="min-datepicker-picker-content-days">
                     <ng-container *ngFor="let day of DaysInMonth">
-                        <div class="day" [class.notInMonth]="!day.isInMonthBase">{{day.date | date:"dd"}}</div>
+                        <div class="day"
+                            [style.background-color]="day.isInMonthBase ? content?.day?.background : content?.dayNotInSelectedMonth?.background"
+                            [style.color]="day.isInMonthBase ? content?.day?.color : content?.dayNotInSelectedMonth?.color"
+                            [class.notInMonth]="!day.isInMonthBase" (click)="selectDate(day.date)">
+                            {{day.date | date: "dd"}}</div>
                     </ng-container>
                 </div>
             </div>
             <!-- <div class="min-datepicker-picker-footer">
-              
+                <div class="min-datepicker-picker-close">&times;</div>
             </div> -->
         </div>
 
